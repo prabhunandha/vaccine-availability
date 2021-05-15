@@ -62,7 +62,7 @@ public class EmailUtil {
 //            System.out.println("Age -->>"+ageLimt);
 
             final String fromEmail = "kprabhu99@gmail.com"; //requires valid gmail id
-            final String password = "Jesus7@best"; // correct password for gmail id
+            final String password = "XXXXXXXXXXXXXX"; // correct password for gmail id
 //            final String toEmail = "kadiam.prabhu@gmail.com,Seshagiri.Palteru@gmail.com"; // can be any email id
             String subject ="Vaccine Availability Details - Age :: "+ageLimt+" and above";
 
