@@ -1,5 +1,8 @@
 package com.kadiam.cowin.vaccine.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 import java.util.List;
 
 public class SessionPOJO {
@@ -12,11 +15,11 @@ public class SessionPOJO {
 
     private String mSessionId;
 
-    private List<String> mSlots;
+    private List<Slots> mSlots;
 
     private String mVaccine;
 
-    public SessionPOJO(Long mAvailableCapacity, String mDate, Long mMinAgeLimit, String mSessionId, List<String> mSlots, String mVaccine) {
+    public SessionPOJO(Long mAvailableCapacity, String mDate, Long mMinAgeLimit, String mSessionId, List<Slots> mSlots, String mVaccine) {
         this.mAvailableCapacity = mAvailableCapacity;
         this.mDate = mDate;
         this.mMinAgeLimit = mMinAgeLimit;
@@ -60,11 +63,11 @@ public class SessionPOJO {
         this.mSessionId = mSessionId;
     }
 
-    public List<String> getmSlots() {
+    public List<Slots> getmSlots() {
         return mSlots;
     }
 
-    public void setmSlots(List<String> mSlots) {
+    public void setmSlots(List<Slots> mSlots) {
         this.mSlots = mSlots;
     }
 

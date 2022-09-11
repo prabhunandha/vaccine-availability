@@ -22,11 +22,12 @@ public class EmailUtil {
 
     @Value("${age.limit}")
     public long ageLimt;
-/*    public static void main(String[] args) {
-        String body;
-        body = "<html><head>This is Testing mail</head><body>{\"centers\":[{\"center_id\":633912,\"name\":\"PERUNGUDI-UCHC COVAXIN\",\"address\":\"NO-1 SCHOOL ROAD KARAYANCHAVADI PERUNGUDI\",\"state_name\":\"Tamil Nadu\",\"district_name\":\"Chennai\",\"block_name\":\"Perungudi\",\"pincode\":600096,\"lat\":12,\"long\":80,\"from\":\"09:00:00\",\"to\":\"16:00:00\",\"fee_type\":\"Free\",\"sessions\":[{\"session_id\":\"26784c46-338d-4522-8986-c6228ea89c80\",\"date\":\"09-05-2021\",\"available_capacity\":0,\"min_age_limit\":45,\"vaccine\":\"COVAXIN\",\"slots\":[\"09:00AM-11:00AM\",\"11:00AM-01:00PM\",\"01:00PM-03:00PM\",\"03:00PM-04:00PM\"]}]},{\"center_id\":603362,\"name\":\"Apollo Spec HospOMR COVISHIELD\",\"address\":\"5-639 Old Mahabalipuram Rd Tirumalai Nagar Perungudi Chennai\",\"state_name\":\"Tamil Nadu\",\"district_name\":\"Chennai\",\"block_name\":\"Perungudi\",\"pincode\":600096,\"lat\":12,\"long\":80,\"from\":\"09:00:00\",\"to\":\"15:30:00\",\"fee_type\":\"Paid\",\"sessions\":[{\"session_id\":\"1d896811-5753-46a3-9876-39802bdf82a8\",\"date\":\"09-05-2021\",\"available_capacity\":0,\"min_age_limit\":18,\"vaccine\":\"COVISHIELD\",\"slots\":[\"09:00AM-10:00AM\",\"10:00AM-11:00AM\",\"11:00AM-12:00PM\",\"12:00PM-03:30PM\"]},{\"session_id\":\"c6bda42d-e98a-442c-bff2-6526e2d5df7e\",\"date\":\"10-05-2021\",\"available_capacity\":0,\"min_age_limit\":18,\"vaccine\":\"COVISHIELD\",\"slots\":[\"09:00AM-11:00AM\",\"11:00AM-01:00PM\",\"01:00PM-03:00PM\",\"03:00PM-04:00PM\"]}],\"vaccine_fees\":[{\"vaccine\":\"COVISHIELD\",\"fee\":\"850\"}]},{\"center_id\":604167,\"name\":\"PERUNGUDI-UCHC COVISHIELD\",\"address\":\"NO-1 SCHOOL ROAD KARAYANCHAVADI PERUNGUDI\",\"state_name\":\"Tamil Nadu\",\"district_name\":\"Chennai\",\"block_name\":\"Perungudi\",\"pincode\":600096,\"lat\":12,\"long\":80,\"from\":\"09:00:00\",\"to\":\"16:00:00\",\"fee_type\":\"Free\",\"sessions\":[{\"session_id\":\"5556d9ce-ff4d-41b3-93b4-b2766c75810e\",\"date\":\"09-05-2021\",\"available_capacity\":0,\"min_age_limit\":45,\"vaccine\":\"COVISHIELD\",\"slots\":[\"09:00AM-11:00AM\",\"11:00AM-01:00PM\",\"01:00PM-03:00PM\",\"03:00PM-04:00PM\"]}]},{\"center_id\":581756,\"name\":\"Apollo Proton COVISHIELD\",\"address\":\"Perungudi\",\"state_name\":\"Tamil Nadu\",\"district_name\":\"Chennai\",\"block_name\":\"Perungudi\",\"pincode\":600096,\"lat\":12,\"long\":80,\"from\":\"09:00:00\",\"to\":\"14:00:00\",\"fee_type\":\"Paid\",\"sessions\":[{\"session_id\":\"766cf5ab-eed8-45f9-9ebf-c0f84f0dc2fd\",\"date\":\"10-05-2021\",\"available_capacity\":0,\"min_age_limit\":18,\"vaccine\":\"COVISHIELD\",\"slots\":[\"09:00AM-10:00AM\",\"10:00AM-11:00AM\",\"11:00AM-12:00PM\",\"12:00PM-02:00PM\"]}],\"vaccine_fees\":[{\"vaccine\":\"COVISHIELD\",\"fee\":\"850\"}]}]}</body></html>";
-        sendEmail(body);
-    }*/
+
+    @Value("${from.mail.id}")
+    public String fromEmail;
+
+    @Value("${secret.password}")
+    public String password;
 
     private Session getMailSession(String fromEmail, String password) {
         Properties props = new Properties();
@@ -54,17 +55,10 @@ public class EmailUtil {
      * Utility method to send simple HTML email
      * @param body
      */
-    public void sendEmail(String body){
+    public void sendEmail(String body, String date){
         try
         {
-//            System.out.println("Sending Mail...");
-//            System.out.println("To Mail===>>"+toMail);
-//            System.out.println("Age -->>"+ageLimt);
-
-            final String fromEmail = "kprabhu99@gmail.com"; //requires valid gmail id
-            final String password = "Jesus7@best"; // correct password for gmail id
-//            final String toEmail = "kadiam.prabhu@gmail.com,Seshagiri.Palteru@gmail.com"; // can be any email id
-            String subject ="Vaccine Availability Details - Age :: "+ageLimt+" and above";
+            String subject ="Vaccine Availability Details On "+date;
 
             Session session = getMailSession(fromEmail, password);
 
@@ -74,7 +68,7 @@ public class EmailUtil {
             msg.addHeader("format", "flowed");
             msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-            msg.setFrom(new InternetAddress("no_reply@example.com", "Prabhunandha"));
+            msg.setFrom(new InternetAddress("no_reply@example.com", "Prabhunandha KADIAM"));
 
             msg.setReplyTo(InternetAddress.parse("no_reply@example.com", false));
 

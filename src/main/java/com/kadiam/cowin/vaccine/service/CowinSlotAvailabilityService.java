@@ -1,6 +1,7 @@
 package com.kadiam.cowin.vaccine.service;
 
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kadiam.cowin.vaccine.domain.*;
 import com.kadiam.cowin.vaccine.util.EmailUtil;
@@ -18,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class CowinSlotAvailabilityService {
 
     @Value("${area.districtId}")
     private String districtId;
+
+    @Value("${area.pincode}")
+    private String pincode;
 
     @Value("${cowin.url}")
     private String cowinURL;
@@ -41,7 +46,7 @@ public class CowinSlotAvailabilityService {
     @Autowired
     public EmailUtil emailUtil;
 
-    @Scheduled(cron="30 * * * * *")
+    @Scheduled(cron="*/10 * * * * *")
     public void checkAvailableSlot() throws Exception {
         log.info("Entry");
         ObjectMapper mapper = new ObjectMapper();
@@ -55,7 +60,8 @@ public class CowinSlotAvailabilityService {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String strDate = sdf.format(date);
-        String dynamicAPIURL = String.format(cowinURL,districtId,strDate);
+        String dynamicAPIURL = cowinURL.contains("district") ? String.format(cowinURL,districtId,strDate) : String.format(cowinURL,pincode,strDate);
+//        String dynamicAPIURL = String.format(cowinURL,districtId,strDate);
         System.out.println("Dynamic String---->>>"+dynamicAPIURL);
 
         URL api = new URL(dynamicAPIURL);
@@ -67,19 +73,17 @@ public class CowinSlotAvailabilityService {
         httpURLConnection.setRequestProperty("User-Agent", "Chrome/90.0.4430.93");
         httpURLConnection.setDoOutput(true);
         int responseCode = httpURLConnection.getResponseCode();
-//        log.info(dateFormat.format(Calendar.getInstance().getTime())+"LOG : ---------- Cowin HTTP Response code  : "+responseCode+"\n");
+        log.info(sdf.format(Calendar.getInstance().getTime())+"LOG : ---------- Cowin HTTP Response code  : "+responseCode+"\n");
 
         BufferedReader in_dispatch_api = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-
-        while((inputLineDispatch_api = in_dispatch_api.readLine()) != null){
+            while((inputLineDispatch_api = in_dispatch_api.readLine()) != null){
             response_dispatch_api.append(inputLineDispatch_api);
         }
         in_dispatch_api.close();
         byte[] jsonDataResponseDispatch  = response_dispatch_api.toString().getBytes();
         Centers centers = mapper.readValue(jsonDataResponseDispatch, Centers.class);
         List<Center> centerList = centers.getCenters();
-
-//        centerList.stream().forEach(e -> System.out.println(" Available Capacity  -->"+ e.getSessions().get(0).getAvailableCapacity() +" Center Id  -->"+e.getCenterId()));
+//        centerList.stream().forEach(e -> System.out.println(" Available Capacity  -->"+ e.getSessions().get(0).getmAvailableCapacityDose1() +" Center Id  -->"+e.getCenterId()));
 
         List<AvailableSlot> availableSlotList = getAvailableSlotPOJO(centerList);
 
@@ -122,7 +126,7 @@ public class CowinSlotAvailabilityService {
             }
         }
         if(availableSlotList.size()>0 && sb.length()>0){
-            emailUtil.sendEmail(new StringBuffer("********** Available Slot Details ********** \n\n").append(sb.toString()).append("\n\n").append("Best Regards\nPrabhunandha").toString());
+            emailUtil.sendEmail(new StringBuffer("********** Available Slot Details ********** \n\n").append(sb.toString()).append("\n\n").append("Best Regards\nPrabhunandha").toString(),strDate);
         }
         log.info("Exit");
     }

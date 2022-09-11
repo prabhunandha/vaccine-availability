@@ -4,7 +4,7 @@ public class VaccineFeesPOJO {
 
     private String mVaccine;
 
-    private long mFee;
+    private double mFee;
 
     public VaccineFeesPOJO(String mVaccine, long mFee) {
         this.mVaccine = mVaccine;
@@ -22,11 +22,11 @@ public class VaccineFeesPOJO {
         this.mVaccine = mVaccine;
     }
 
-    public long getmFee() {
+    public double getmFee() {
         return mFee;
     }
 
-    public void setmFee(long mFee) {
+    public void setmFee(double mFee) {
         this.mFee = mFee;
     }
 }

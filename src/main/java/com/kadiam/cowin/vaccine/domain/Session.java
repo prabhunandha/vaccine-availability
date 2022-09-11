@@ -1,6 +1,8 @@
 
 package com.kadiam.cowin.vaccine.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.annotation.Generated;
@@ -16,10 +18,14 @@ public class Session {
     private String mDate;
     @JsonProperty("min_age_limit")
     private Long mMinAgeLimit;
+    @JsonProperty("max_age_limit")
+    private Long mMaxAgeLimit;
+    @JsonProperty("allow_all_age")
+    private Boolean allowAllAge;
     @JsonProperty("session_id")
     private String mSessionId;
     @JsonProperty("slots")
-    private List<String> mSlots;
+    private List<Slots> mSlots;
     @JsonProperty("vaccine")
     private String mVaccine;
     @JsonProperty("available_capacity_dose1")
@@ -27,7 +33,7 @@ public class Session {
     @JsonProperty("available_capacity_dose2")
     private Long mAvailableCapacityDose2;
 
-    public Session(Long mAvailableCapacity, String mDate, Long mMinAgeLimit, String mSessionId, List<String> mSlots, String mVaccine, Long mAvailableCapacityDose1, Long mAvailableCapacityDose2) {
+    public Session(Long mAvailableCapacity, String mDate, Long mMinAgeLimit, String mSessionId, List<Slots> mSlots, String mVaccine, Long mAvailableCapacityDose1, Long mAvailableCapacityDose2) {
         this.mAvailableCapacity = mAvailableCapacity;
         this.mDate = mDate;
         this.mMinAgeLimit = mMinAgeLimit;
@@ -73,11 +79,11 @@ public class Session {
         this.mSessionId = mSessionId;
     }
 
-    public List<String> getmSlots() {
+    public List<Slots> getmSlots() {
         return mSlots;
     }
 
-    public void setmSlots(List<String> mSlots) {
+    public void setmSlots(List<Slots> mSlots) {
         this.mSlots = mSlots;
     }
 

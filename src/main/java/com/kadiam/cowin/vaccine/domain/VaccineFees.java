@@ -7,7 +7,7 @@ public class VaccineFees {
     private String mVaccine;
 
     @JsonProperty("fee")
-    private long mFee;
+    private double mFee;
 
     public VaccineFees(String mVaccine, long mFee) {
         this.mVaccine = mVaccine;
@@ -22,11 +22,11 @@ public class VaccineFees {
         this.mVaccine = mVaccine;
     }
 
-    public long getmFee() {
+    public double getmFee() {
         return mFee;
     }
 
-    public void setmFee(long mFee) {
+    public void setmFee(double mFee) {
         this.mFee = mFee;
     }
 
