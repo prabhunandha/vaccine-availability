@@ -58,7 +58,7 @@ public class EmailUtil {
     public void sendEmail(String body, String date){
         try
         {
-            String subject ="Vaccine Availability Details On "+date;
+            String subject ="Vaccine Availability Details By Pincode On "+date;
 
             Session session = getMailSession(fromEmail, password);
 
