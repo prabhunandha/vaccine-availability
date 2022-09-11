@@ -82,6 +82,7 @@ public class CowinSlotAvailabilityService {
         in_dispatch_api.close();
         byte[] jsonDataResponseDispatch  = response_dispatch_api.toString().getBytes();
         Centers centers = mapper.readValue(jsonDataResponseDispatch, Centers.class);
+
         List<Center> centerList = centers.getCenters();
 //        centerList.stream().forEach(e -> System.out.println(" Available Capacity  -->"+ e.getSessions().get(0).getmAvailableCapacityDose1() +" Center Id  -->"+e.getCenterId()));
 

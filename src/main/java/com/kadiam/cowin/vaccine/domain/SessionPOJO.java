@@ -15,11 +15,11 @@ public class SessionPOJO {
 
     private String mSessionId;
 
-    private List<Slots> mSlots;
+    private List<String> mSlots;
 
     private String mVaccine;
 
-    public SessionPOJO(Long mAvailableCapacity, String mDate, Long mMinAgeLimit, String mSessionId, List<Slots> mSlots, String mVaccine) {
+    public SessionPOJO(Long mAvailableCapacity, String mDate, Long mMinAgeLimit, String mSessionId, List<String> mSlots, String mVaccine) {
         this.mAvailableCapacity = mAvailableCapacity;
         this.mDate = mDate;
         this.mMinAgeLimit = mMinAgeLimit;
@@ -63,11 +63,11 @@ public class SessionPOJO {
         this.mSessionId = mSessionId;
     }
 
-    public List<Slots> getmSlots() {
+    public List<String> getmSlots() {
         return mSlots;
     }
 
-    public void setmSlots(List<Slots> mSlots) {
+    public void setmSlots(List<String> mSlots) {
         this.mSlots = mSlots;
     }
 
